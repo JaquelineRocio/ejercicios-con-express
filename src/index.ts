@@ -16,14 +16,23 @@ interface Person {
 }
 
 let persons: Person[] = [
-  { id: 1, name: "Arto Hellas", number: "040-123456" },
-  { id: 2, name: "Ada Lovelace", number: "39-44-5323523" },
-  { id: 3, name: "Dan Abramov", number: "12-43-234345" },
-  { id: 4, name: "Mary Poppendieck", number: "39-23-6423122" },
+  { id: 1, name: "Juan Peres", number: "99123456" },
+  { id: 2, name: "Maria Ramos", number: "925323523" },
+  { id: 3, name: "Pedro Gonzales", number: "95234345" },
+  { id: 4, name: "Jose Guzman", number: "926423122" },
 ];
 
 app.get('/api/persons', (req: Request, res: Response) => {
   res.json(persons);
+});
+
+app.get('/info', (req: Request, res: Response) => {
+  const date = new Date();
+  const message = `
+    <p>Phonebook has info for ${persons.length} people</p>
+    <p>${date}</p>
+  `;
+  res.send(message);
 });
 
 app.listen(PORT, () => {
