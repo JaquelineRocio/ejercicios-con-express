@@ -1,16 +1,24 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 
 const app = express();
 const PORT = 3001;
 
+
 app.use(cors());
 app.use(express.json());
 app.use(morgan('tiny'));
 
+
 interface Person {
   id: number;
+  name: string;
+  number: string;
+}
+
+
+interface CreatePersonRequest {
   name: string;
   number: string;
 }
@@ -21,6 +29,7 @@ let persons: Person[] = [
   { id: 3, name: "Pedro Gonzales", number: "95234345" },
   { id: 4, name: "Jose Guzman", number: "926423122" },
 ];
+
 
 app.get('/api/persons', (req: Request, res: Response) => {
   res.json(persons);
@@ -52,6 +61,33 @@ app.delete('/api/persons/:id', (req: Request, res: Response) => {
   res.status(204).end();
 });
 
+
+
+app.post('/api/persons', (req: Request<{}, {}, CreatePersonRequest>, res: Response, next: NextFunction) => {
+  const { name, number } = req.body;
+
+  if (!name || !number) {
+    res.status(400).json({ error: 'Name or number is missing' });
+    return;
+  }
+
+  const nameExists = persons.some(p => p.name === name);
+  if (nameExists) {
+    res.status(400).json({ error: 'Name must be unique' });
+    return;
+  }
+
+  const newPerson: Person = {
+    id: Math.floor(Math.random() * 10000),
+    name,
+    number
+  };
+
+
+  persons = [...persons, newPerson];
+
+  res.status(201).json(newPerson);
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
