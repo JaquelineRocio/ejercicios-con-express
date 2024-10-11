@@ -10,6 +10,8 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('tiny'));
 
+morgan.token('body', (req: Request) => JSON.stringify(req.body));
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
 
 interface Person {
   id: number;
