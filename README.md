@@ -32,12 +32,12 @@ Instala las dependencias:
  ```bash
 npm install
  ```
-##Scripts
+## Scripts
 npm run dev: Ejecuta la aplicación en modo de desarrollo utilizando nodemon.
 npm run build: Compila el proyecto TypeScript a JavaScript.
 npm start: Inicia la aplicación utilizando el código compilado en la carpeta dist.
 
-##Uso
+## Uso
 1. Inicia la aplicación en modo de desarrollo:
  ```bash
 npm run dev
@@ -45,7 +45,7 @@ npm run dev
 
 2. La API estará disponible en http://localhost:3001.
 
-##Endpoints
+## Endpoints
 1. Obtener todas las personas
 URL: /api/persons
 
@@ -143,7 +143,7 @@ Código de estado 400 si el nombre ya existe.
 }
  ```
 
-##Middleware
+## Middleware
 CORS: Configurado para permitir solicitudes de origen cruzado.
 Morgan: Configurado para registrar las solicitudes HTTP en la consola. Además, se ha extendido para registrar el cuerpo de las solicitudes POST.
 express.json(): Middleware para analizar el cuerpo de las solicitudes JSON.
